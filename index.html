@@ -31,7 +31,8 @@
             box-shadow: 0 0 50px rgba(0,0,0,0.6);
             background: #000;
             max-width: 95vw; /* Mobilde taşmasın */
-            max-height: 70vh;
+            /* DEĞİŞİKLİK: Mobilde tuşlara yer kalsın diye yüksekliği azalttık */
+            max-height: 55vh; 
         }
         #ui { position: absolute; top: 20px; width: 100%; text-align: center; pointer-events: none; z-index: 10; }
         
@@ -39,7 +40,7 @@
             display: flex; justify-content: center; gap: 20px;
             text-shadow: 2px 2px 0 #000;
         }
-        .score-box { font-size: 20px; font-weight: bold; color: #fff; } /* Mobilde fontu biraz küçülttüm */
+        .score-box { font-size: 20px; font-weight: bold; color: #fff; } 
         #scoreVal { color: #ffd700; font-size: 28px; }
         #highScoreVal { color: #00ff00; }
 
@@ -52,7 +53,7 @@
             z-index: 20; backdrop-filter: blur(8px);
         }
         h1 {
-            font-size: 32px; color: #ff4757; text-transform: uppercase; /* Mobilde başlık sığsın diye küçülttüm */
+            font-size: 32px; color: #ff4757; text-transform: uppercase; 
             margin-bottom: 20px; text-shadow: 0 0 20px rgba(255, 71, 87, 0.5);
             letter-spacing: 2px; text-align: center; line-height: 1.2;
         }
@@ -62,7 +63,7 @@
         .lang-container { display: flex; gap: 10px; justify-content: center; margin-bottom: 10px; }
         .lang-btn {
             background: transparent; border: 2px solid #555; color: #888;
-            padding: 8px 12px; font-weight: bold; cursor: pointer; /* Mobilde dokunma alanı artsın */
+            padding: 8px 12px; font-weight: bold; cursor: pointer; 
             border-radius: 5px; transition: 0.3s;
         }
         .lang-btn.active { border-color: #ffd700; color: #ffd700; box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
@@ -96,15 +97,28 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.5); transition: 0.2s;
         }
 
-        /* MOBİL KONTROLLER - Default olarak görünür yaptık, masaüstünde gizleyeceğiz */
-        #controls { display: grid; grid-template-areas: ". up ." "left . right" ". down ."; gap: 10px; position: absolute; bottom: 20px; z-index: 5; }
+        /* MOBİL KONTROLLER */
+        /* DEĞİŞİKLİK: Gap arttırıldı ve konum biraz daha yukarı çekildi */
+        #controls { 
+            display: grid; 
+            grid-template-areas: ". up ." "left . right" ". down ."; 
+            gap: 15px; 
+            position: absolute; 
+            bottom: 30px; 
+            z-index: 5; 
+        }
+        
         .d-pad-btn {
-            width: 60px; height: 60px;
+            /* DEĞİŞİKLİK: Tuş boyutları 60px -> 80px */
+            width: 80px; 
+            height: 80px;
             background: rgba(255, 255, 255, 0.1);
             border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 24px; user-select: none; backdrop-filter: blur(4px);
+            /* DEĞİŞİKLİK: Font boyutu büyütüldü */
+            font-size: 32px; 
+            user-select: none; backdrop-filter: blur(4px);
             touch-action: manipulation;
         }
         .d-pad-btn:active { background: rgba(255,255,255,0.3); }
@@ -114,7 +128,10 @@
         #btnRight { grid-area: right; }
 
         /* Masaüstünde (mouse varsa) kontrolleri gizle */
-        @media (pointer: fine) { #controls { display: none; } }
+        @media (pointer: fine) { 
+            #controls { display: none; } 
+            canvas { max-height: 75vh; } /* Masaüstünde canvas daha büyük olabilir */
+        }
     </style>
 </head>
 <body>
@@ -173,7 +190,8 @@
 
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
-        const gridSize = 10; const cellSize = 40; const moveInterval = 160; 
+        // DEĞİŞİKLİK: Hız 210 ms yapıldı
+        const gridSize = 10; const cellSize = 40; const moveInterval = 210; 
         
         const langData = {
             en: { skin: "TAIL COLOR", volume: "VOLUME", play: "PLAY", score: "SCORE", best: "BEST", restart: "REPLAY 💀", menu: "MENU 🏠" },
